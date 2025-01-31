@@ -1,0 +1,15 @@
+[submodule "models/diffwave"]
+	path = models/diffwave
+	url = https://github.com/kolyangg/diffwave.git
+[submodule "models/hifi_pp"]
+	path = models/hifi_pp
+	url = https://github.com/kolyangg/hifi_plusplus
+[submodule "models/hifi-gan"]
+	path = models/hifi-gan
+	url = https://github.com/kolyangg/hifi-gan
+[submodule "models/wavegrad"]
+	path = models/wavegrad
+	url = https://github.com/kolyangg/wavegrad.git
+[submodule "models/universe"]
+	path = models/universe
+	url = https://github.com/kolyangg/open-universe.git
