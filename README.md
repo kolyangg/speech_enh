@@ -21,13 +21,19 @@ cd speech_enh
 
 ```bash
 models/diffwave/setup.sh
+models/wavegrad/setup.sh
+
+
+models/universe/setup.sh
+
 
 ```
 
 
 ## 2. Скачивание и подготовка данных
-# Voicebank Demand датасет
+### Voicebank Demand датасет
 ```bash
+conda activate universe
 models/universe/data/prepare_voicebank_demand.sh
 ```
 
@@ -36,6 +42,24 @@ models/universe/data/prepare_voicebank_demand.sh
 ### diffwave
 ```bash
 conda activate diffwave
-models/diffwave/diff_inference.sh diffwave-ljspeech-22kHz-1000578.pt results/voicebank_16k/diffwave
+python3 -m models/diffwave/diffwave.preprocess datasets/voicebank_demand/16k/test/noisy
+models/diffwave/diff_inference.sh diffwave-ljspeech-22kHz-1000578.pt datasets/voicebank_demand/16k/test/noisy results/voicebank_16k/diffwave
 ```
 
+### wavegrad
+```bash
+conda activate diffwave # works for wavegrad
+python3 -m models/wavegrad/wavegrad.preprocess datasets/voicebank_demand/16k/test/noisy
+models/wavegrad/wave_inference.sh wavegrad-24kHz.pt datasets/voicebank_demand/16k/test/noisy results/voicebank_16k/wavegrad
+```
+
+### universe / universe++
+```bash
+conda activate universe
+
+python3 -m models/universe/open_universe.bin.enhance datasets/voicebank_demand/16k/test/noisy results/voicebank_16k/universe_pp/ \
+  --model line-corporation/open-universe:original
+
+python3 -m models/universe/open_universe.bin.enhance datasets/voicebank_demand/16k/test/noisy results/voicebank_16k/universe_pp/ \
+  --model line-corporation/open-universe:plusplus
+```
