@@ -129,14 +129,24 @@ python3 -m open_universe.bin.eval_metrics results/voicebank_16k/universe_pp/  \
 ```bash
 conda activate universe
 
-python -m open_universe.bin.make_table \
+python3 -m open_universe.bin.make_table \
     --format github \
-    --results 
-        metrics/voicebank_16k/diffwave/diffwave_summary.json \
-        metrics/voicebank_16k/wavegrad/wavegrad_summary.json \
-        metrics/voicebank_16k/hifi-gan/hifi-gan_summary.json \
-        metrics/voicebank_16k/hifi_pp/hifi_pp_summary.json \
-        metrics/voicebank_16k/universe_pp/universe_orig_summary.json \
-        metrics/voicebank_16k/universe_pp/universe_pp_summary.json \
-    --labels DiffWave WaveGrad Hifi_GAN HiFi++ UNIVERSE++ UNIVERSE
+    --results   metrics/voicebank_16k/diffwave/diffwave_summary.json \
+                metrics/voicebank_16k/wavegrad/wavegrad_summary.json \
+                metrics/voicebank_16k/hifi-gan/hifi-gan_summary.json \
+                metrics/voicebank_16k/hifi_pp/hifi_pp_summary.json \
+                metrics/voicebank_16k/universe_orig/universe_orig_summary.json \
+                metrics/voicebank_16k/universe_pp/universe_pp_summary.json \
+    --labels DiffWave WaveGrad Hifi_GAN HiFi++ UNIVERSE UNIVERSE++
 ```
+
+## 6. Результаты
+
+| model      |   si-sdr |   pesq-wb |   stoi-ext |    lsd |   lps |   OVRL |   SIG |   BAK |
+|------------|----------|-----------|------------|--------|-------|--------|-------|-------|
+| DiffWave   |  -43.039 |     1.082 |      0.457 |  9.959 | 0.799 |  2.444 | 3.002 | 3.178 |
+| WaveGrad   |  -28.470 |     1.124 |      0.518 | 21.592 | 0.731 |  2.043 | 2.767 | 2.238 |
+| Hifi_GAN   |  -40.591 |     1.055 |      0.155 | 13.404 | 0.423 |  2.363 | 3.015 | 2.809 |
+| HiFi++     |  -19.309 |     2.301 |      0.319 | 13.471 | 0.854 |  3.008 | 3.329 | 3.888 |
+| UNIVERSE   |   17.596 |     2.835 |      0.844 |  6.320 | 0.921 |  3.158 | 3.457 | 4.013 |
+| UNIVERSE++ |   18.630 |     3.013 |      0.864 |  4.868 | 0.935 |  3.204 | 3.492 | 4.043 |
