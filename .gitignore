@@ -177,3 +177,9 @@ checkpoints/
 # Datasets
 datasets/
 data/
+
+# Results
+results/
+
+weights/
+metrics/
