@@ -140,7 +140,7 @@ python3 -m open_universe.bin.make_table \
     --labels DiffWave WaveGrad Hifi_GAN HiFi++ UNIVERSE UNIVERSE++
 ```
 
-## 6. Результаты
+## 6. Результаты на датасете Voicebank Demand (16k)
 
 | model      |   si-sdr |   pesq-wb |   stoi-ext |    lsd |   lps |   OVRL |   SIG |   BAK |
 |------------|----------|-----------|------------|--------|-------|--------|-------|-------|
@@ -150,3 +150,62 @@ python3 -m open_universe.bin.make_table \
 | HiFi++     |  -19.309 |     2.301 |      0.319 | 13.471 | 0.854 |  3.008 | 3.329 | 3.888 |
 | UNIVERSE   |   17.596 |     2.835 |      0.844 |  6.320 | 0.921 |  3.158 | 3.457 | 4.013 |
 | UNIVERSE++ |   18.630 |     3.013 |      0.864 |  4.868 | 0.935 |  3.204 | 3.492 | 4.043 |
+
+## 7. Скачивание сложных семплов
+```bash
+python3 src/hard_dataset.py
+
+```
+
+## 8. Инференс и подсчёт метрик
+
+```bash
+python3 -m open_universe.bin.enhance data/hard_dataset/paired/noisy results/hard_dataset/universe_pp/paired \
+  --model line-corporation/open-universe:plusplus
+python3 -m open_universe.bin.enhance data/hard_dataset/all/noisy results/hard_dataset/universe_pp/all/ \
+  --model line-corporation/open-universe:plusplus
+python3 -m open_universe.bin.enhance data/hard_dataset/cv/noisy results/hard_dataset/universe_pp/cv/ \
+  --model line-corporation/open-universe:plusplus
+python3 -m open_universe.bin.enhance data/hard_dataset/vox/noisy results/hard_dataset/universe_pp/vox/ \
+  --model line-corporation/open-universe:plusplus
+
+```
+
+```bash
+conda activate universe
+
+python3 -m open_universe.bin.eval_metrics results/hard_dataset/universe_pp/paired  \
+  --ref_path data/hard_dataset/paired/clean \
+  --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
+  --result_dir metrics/hard_dataset/universe_pp/paired
+python3 -m open_universe.bin.eval_metrics results/hard_dataset/universe_pp/all  \
+  --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
+  --result_dir metrics/hard_dataset/universe_pp/all
+python3 -m open_universe.bin.eval_metrics results/hard_dataset/universe_pp/cv  \
+  --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
+  --result_dir metrics/hard_dataset/universe_pp/cv
+python3 -m open_universe.bin.eval_metrics results/hard_dataset/universe_pp/vox  \
+  --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
+  --result_dir metrics/hard_dataset/universe_pp/vox
+```
+
+```bash
+conda activate universe
+
+python3 -m open_universe.bin.make_table \
+    --format github \
+    --results   metrics/hard_dataset/universe_pp/paired/paired_summary.json \
+                metrics/hard_dataset/universe_pp/all/all_summary.json \
+                metrics/hard_dataset/universe_pp/cv/cv_summary.json \
+                metrics/hard_dataset/universe_pp/vox/vox_summary.json \
+    --labels Paired All CV Vox
+```
+
+## 9. Результаты на сложных семплах
+
+| model   |   si-sdr |   pesq-wb |   stoi-ext |    lsd |   lps |   OVRL |   SIG |   BAK |
+|---------|----------|-----------|------------|--------|-------|--------|-------|-------|
+| Paired  |  -27.111 |     1.060 |      0.155 | 21.935 | 0.148 |  1.958 | 2.225 | 3.509 |
+| All     |          |           |            |        |       |  2.597 | 2.914 | 3.787 |
+| CV      |          |           |            |        |       |  2.406 | 2.754 | 3.674 |
+| Vox     |          |           |            |        |       |  3.172 | 3.457 | 4.023 |
