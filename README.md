@@ -114,7 +114,7 @@ python3 -m open_universe.bin.eval_metrics results/voicebank_16k/hifi_pp \
 python3 -m open_universe.bin.eval_metrics results/voicebank_16k/universe_orig/ \
   --ref_path data/voicebank_demand/16k/test/clean \
   --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
-  --result_dir metrics/voicebank_16k/orig/ 
+  --result_dir metrics/voicebank_16k/universe_orig/ 
 
 # universe++
 python3 -m open_universe.bin.eval_metrics results/voicebank_16k/universe_pp/  \
