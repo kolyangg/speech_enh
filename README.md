@@ -140,7 +140,7 @@ python3 -m open_universe.bin.make_table \
     --labels DiffWave WaveGrad Hifi_GAN HiFi++ UNIVERSE UNIVERSE++
 ```
 
-## 6. Результаты на датасете Voicebank Demand (16k)
+## 6. Результаты разных моделей на датасете Voicebank Demand (16k)
 
 | model      |   si-sdr |   pesq-wb |   stoi-ext |    lsd |   lps |   OVRL |   SIG |   BAK |
 |------------|----------|-----------|------------|--------|-------|--------|-------|-------|
@@ -201,7 +201,7 @@ python3 -m open_universe.bin.make_table \
     --labels Paired All CV Vox
 ```
 
-## 9. Результаты на сложных семплах
+## 9. Результаты Universe++ на сложных семплах
 
 | model   |   si-sdr |   pesq-wb |   stoi-ext |    lsd |   lps |   OVRL |   SIG |   BAK |
 |---------|----------|-----------|------------|--------|-------|--------|-------|-------|
