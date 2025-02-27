@@ -191,3 +191,5 @@ models/hifi_pp/models/__pycache__
 models/hifi_gan/__pycache__
 models/universe/build
 models/wavegrad/build
+
+exp/
