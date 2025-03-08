@@ -195,3 +195,12 @@ models/wavegrad/build
 exp/
 runs/
 _backup/
+
+# Server specific
+recovered_config.txt
+script_eval.sbatch
+script_infer.sbatch
+script_recovered.sbatch
+utils/cp_check.py
+utils/espeak_install.sh
+utils/icu_install.sh
