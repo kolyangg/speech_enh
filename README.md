@@ -14,6 +14,8 @@
 # Использование кода
 
 ```bash
+git clone --recursive https://github.com/kolyangg/speech_enh.git
+
 cd speech_enh
 ```
 

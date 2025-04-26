@@ -204,3 +204,9 @@ script_recovered.sbatch
 utils/cp_check.py
 utils/espeak_install.sh
 utils/icu_install.sh
+
+_miipher/
+
+_ssh/
+
+_old/
