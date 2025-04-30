@@ -1,0 +1,6 @@
+# keep the image small
+data/*
+__pycache__/
+*.py[cod]
+*.ipynb
+.git

@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  universe:
+    build: .
+    image: speech_enh/universe:latest
+    container_name: universe
+    # GPU access
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              count: all
+    # mount your whole repo and DATA so they live outside the image
+    volumes:
+      - ./:/workspace
+      - ./data:/workspace/data
+    working_dir: /workspace
