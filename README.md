@@ -21,7 +21,7 @@ models/universe/serv_setup.sh --mamba
 ## введите ключ для wandb при необходимости
 ## выберите y/n для последующего создания MFA меток для датасета
 source activate
-conda activate univere
+conda activate universe
 # в случае ошибки запустить скрипт ещё раз
 ```
 
