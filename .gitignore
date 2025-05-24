@@ -193,6 +193,7 @@ models/universe/build
 models/wavegrad/build
 
 exp/
+exp2/
 runs/
 _backup/
 
@@ -210,3 +211,15 @@ _miipher/
 _ssh/
 
 _old/
+
+# text gr stuff
+textgr/
+txt_arpa_out/
+txt_arpa_out2/
+txt_arpa_out_val/
+eng-us.tsv
+
+# env stuff
+env_min.yml
+env_20Feb_clean.yml
+env_20Feb.yaml

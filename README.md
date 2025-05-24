@@ -2,7 +2,79 @@
 Репозиторий с проектом по теме Speech enhancement
 
 
-# Модели
+
+# Использование кода
+
+```bash
+git clone --recursive https://github.com/kolyangg/speech_enh.git
+
+cd speech_enh
+```
+
+
+# I. Инференс улучшенных версий модели (на основе UNIVERSE++)
+
+## 1. Настройка окружения + скачивание датасета Voicebank + DEMAND (происходит параллельно установке окружения)
+
+```bash
+models/universe/serv_setup.sh --mamba
+## введите ключ для wandb при необходимости
+## выберите y/n для последующего создания MFA меток для датасета
+source activate
+conda activate univere
+```
+
+## 2. Скачивание чекпоинтов финальных моделей (Miipher + Double, Simple + Large, Original)
+
+```bash
+models/universe/utils/checkp_dl.sh
+```
+
+## 3. Скачивание сложного датасета
+
+```bash
+ models/universe/utils/hard_ds_dl.sh
+```
+
+## 3. Инференс на сложном датасете
+```bash
+export PYTHONPATH=$PWD/models/universe:$PYTHONPATH
+
+# Miipher + Double
+python3 models/universe/open_universe/bin/enhance_NS.py exp2/hard_dataset/all/noisy results/hard_ds/miiph+dbl --model exp2/wv_double+ff_m2_wvloss_18May/checkpoints/universe/exper/last.ckpt --text-path exp2/hard_dataset/transcripts
+
+# Simple + Large
+python3 models/universe/open_universe/bin/enhance_NS.py exp2/hard_dataset/all/noisy results/hard_ds/simpl_l --model exp2/16May_full_film_xph_wv/checkpoints/universe/exper/last.ckpt --text-path exp2/hard_dataset/transcripts
+
+# Original (50k steps) - no text
+python3 models/universe/open_universe/bin/enhance_NS.py exp2/hard_dataset/all/noisy results/hard_ds/orig --model exp2/orig_bucket_cluster/checkpoints/universe/exper/last.ckpt
+```
+
+## 4. Подсчёт метрик
+```bash
+# Miipher + Double
+python3 -m open_universe.bin.eval_metrics  results/hard_ds/miiph+dbl \
+  --ref_path exp2/hard_dataset/all/clean \
+  --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
+  --result_dir metrics/hard_dataset/miiph+dbl/ 
+
+# Simple + Large
+
+python3 -m open_universe.bin.eval_metrics results/hard_ds/simpl_l \
+  --ref_path exp2/hard_dataset/all/clean \
+  --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
+  --result_dir metrics/hard_dataset/simpl_l/ 
+
+# Original (50k steps)
+python3 -m open_universe.bin.eval_metrics results/hard_ds/orig \
+  --ref_path exp2/hard_dataset/all/clean \
+  --metrics dnsmos lps lsd pesq-wb si-sdr stoi-ext \
+  --result_dir metrics/hard_dataset/orig/ 
+```
+
+# II. Бенчмарк чекпоинтов базовых моделей
+
+## Базовые модели
  
 За benchmark архитектуры были взяты модели:
 - Diffwave (https://github.com/lmnt-com/diffwave)
@@ -11,13 +83,6 @@
 - HiFi++ (https://github.com/SamsungLabs/hifi_plusplus)
 - Universe / Universe++ (https://github.com/line/open-universe)
  
-# Использование кода
-
-```bash
-git clone --recursive https://github.com/kolyangg/speech_enh.git
-
-cd speech_enh
-```
 
 ## 1. Настройка окружения всех моделей + скачивание чекпоинтов
 
