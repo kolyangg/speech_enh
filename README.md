@@ -22,6 +22,7 @@ models/universe/serv_setup.sh --mamba
 ## выберите y/n для последующего создания MFA меток для датасета
 source activate
 conda activate univere
+# в случае ошибки запустить скрипт ещё раз
 ```
 
 ## 2. Скачивание чекпоинтов финальных моделей (Miipher + Double, Simple + Large, Original)
